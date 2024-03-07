@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import { StatusTaskEnum } from "../../common/types";
+import mongoose from 'mongoose';
+import { StatusTaskEnum } from '../../common/types';
 
 export interface ITask {
 	_id?: mongoose.Types.ObjectId;
@@ -16,18 +16,17 @@ export interface TaskDocument extends ITask, mongoose.Document {
 	_id?: mongoose.Types.ObjectId;
 }
 
-export const TaskSchema: mongoose.Schema<TaskDocument> =
-	new mongoose.Schema<TaskDocument>(
-		{
-			title: { type: String, required: true },
-			description: { type: String, required: true },
-			dueDate: { type: Date, required: true },
-			status: {
-				type: String,
-				enum: Object.values(StatusTaskEnum),
-				required: true,
-			},
-			public: { type: Boolean, default: true },
+export const TaskSchema: mongoose.Schema<TaskDocument> = new mongoose.Schema<TaskDocument>(
+	{
+		title: { type: String, required: true },
+		description: { type: String, required: true },
+		dueDate: { type: Date, required: true },
+		status: {
+			type: String,
+			enum: Object.values(StatusTaskEnum),
+			default: StatusTaskEnum.NOVA,
 		},
-		{ timestamps: true },
-	);
+		public: { type: Boolean, default: true },
+	},
+	{ timestamps: true },
+);

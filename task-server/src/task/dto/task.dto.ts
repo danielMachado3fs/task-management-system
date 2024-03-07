@@ -28,7 +28,7 @@ export class CreateTaskDto {
 }
 
 export class UpdateTaskDto extends PartialType(CreateTaskDto) {
-	@IsNotEmpty()
+	@IsOptional()
 	@IsString()
-	_id: string;
+	_id?: string;
 }
