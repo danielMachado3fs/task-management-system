@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { StatusTaskEnum } from "../../common/types";
 
 export interface ITask {
 	_id?: mongoose.Types.ObjectId;
