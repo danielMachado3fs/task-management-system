@@ -8,7 +8,12 @@
 		"rules": {
 			"recommended": true,
 			"complexity": {
-        "noForEach": "off"
+        "noForEach": "off",
+				"noUselessCatch": "off"
+      },
+      "suspicious": {
+        "noExplicitAny": "off",
+				"noDoubleEquals": "off"
       }
 		}
 	},
@@ -20,7 +25,6 @@
 		"formatter": {
 			"quoteStyle": "single",
 			"arrowParentheses": "asNeeded",
-      "semicolons": "always",
 			"lineWidth": 120
 		},
 		"parser": {
