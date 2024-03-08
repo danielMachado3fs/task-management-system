@@ -1,1 +1,64 @@
-<p>task-form works!</p>
+<div>
+  <div class="top-bar">
+    <h1>Adicionar Tarefa</h1>
+    <p-button [routerLink]="['']" label="Voltar" icon="pi pi-arrow-left" severity="secondary"></p-button>
+  </div>
+  <div>
+  <div class="loader"  [ngClass]="isLoading ? 'visible' : ''">
+    <app-loading size="3rem" ></app-loading>
+  </div>
+    <form *ngIf="formTask" [formGroup]="formTask">
+      <input type="hidden" formControlName="_id" *ngIf="formTask.get('_id')?.value != ''">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="d-flex flex-column gap-2">
+            <label for="title">Título *</label>
+            <input pInputText formControlName="title" />
+            <small class="inputErro" *ngIf="formTask?.get('title')?.invalid && isSubmitting">Campo obrigatório!</small>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="d-flex flex-column gap-2">
+            <label for="dueDate">Data de vencimento *</label>
+            <input pInputText type="date" formControlName="dueDate" />
+              <small class="inputErro" *ngIf="formTask?.get('dueDate')?.invalid && isSubmitting">Campo obrigatório!</small>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="d-flex flex-column gap-2">
+            <label for="status">Status *</label>
+            <p-dropdown [options]="statusOptions" formControlName="status" optionLabel="name" [showClear]="true"
+              placeholder="Selecione" [style]="{width: '100%'}"></p-dropdown>
+              <small class="inputErro" *ngIf="formTask?.get('status')?.invalid && isSubmitting">Campo obrigatório!</small>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="d-flex flex-column gap-2">
+            <label for="isPublic">Pública *</label>
+            <p-dropdown [options]="booleanOptions" formControlName="isPublic" optionLabel="name" [showClear]="true"
+              placeholder="Selecione" [style]="{width: '100%'}"></p-dropdown>
+              <small class="inputErro" *ngIf="formTask?.get('isPublic')?.invalid && isSubmitting">Campo obrigatório!</small>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="d-flex flex-column gap-2">
+            <label for="description">Descrição *</label>
+            <textarea rows="5" cols="30" pInputTextarea formControlName="description"></textarea>
+            <small class="inputErro" *ngIf="formTask?.get('description')?.invalid && isSubmitting">Campo obrigatório!</small>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="d-flex flex-column" style="align-items: end;">
+            <p-button (click)="saveTask()" label="Salvar" icon="pi pi-check" [disabled]="isSubmitting && isLoading"></p-button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

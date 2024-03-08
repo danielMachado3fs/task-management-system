@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Task } from '../shared/types/task';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaskService {
+  $tasks = new BehaviorSubject<Task[]>([]);
   private endpoint = 'http://localhost:3001/api/task'
   constructor(private http: HttpClient){}
 
@@ -18,7 +19,7 @@ export class TaskService {
     return this.http.get(`${this.endpoint}/${_id}`)
   }
 
-  deletTask(_id: string): Observable<any>{
+  deleteTask(_id: string): Observable<any>{
     return this.http.delete(`${this.endpoint}/${_id}`)
   }
 

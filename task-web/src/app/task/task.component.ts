@@ -27,7 +27,7 @@ export class TaskComponent implements OnInit{
         setTimeout(() => {
           this.tasks = res.data;
           this.isLoading = false;
-        }, 3000);
+        }, 2000);
       },
       error: (err) => {
         console.log("🚀 ~ TaskComponent ~ this.taskService.findTasks ~ err:", err)

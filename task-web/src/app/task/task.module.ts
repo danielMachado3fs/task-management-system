@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
-import { TableModule } from 'primeng/table';
 import { SharedModule } from '../shared/shared.module';
 import { TaskFormComponent } from './task-form/task-form.component';
 import { TaskRoutingModule } from './task-routing.module';
@@ -17,10 +17,10 @@ import { TaskService } from './task.service';
   imports: [
     ButtonModule,
     TaskRoutingModule,
-    TableModule,
     HttpClientModule,
     CommonModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ],
   providers: [TaskService]
 })

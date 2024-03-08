@@ -1,5 +1,5 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
-@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/themes/bootstrap4-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
 
@@ -23,4 +23,24 @@
   text-align: center;
   min-height: 100px;
   width: 100%;
+}
+
+.loader {
+  display: flex;
+  position: fixed;
+  opacity: 0.8;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999 !important;
+  top: 0;
+  left: 0;
+  background-color: #ffffff92;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &.visible {
+    display: flex;
+  }
 }
