@@ -1,4 +1,4 @@
-# Sistema básico de genrenciamento de tarefas!
+# Sistema básico de gerenciamento de tarefas!
 Sistema de gerenciamento de tarefas utilizando NestJS no backend, Angular no frontend web e MongoDB para a persistência dos dados.
 
 ## ✔️ Tecnologias utilizadas
