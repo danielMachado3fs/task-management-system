@@ -8,7 +8,7 @@ Sistema de gerenciamento de tarefas utilizando NestJS no backend, Angular no fro
 - ``MongoDB``
 
 ## 📁 Acesso ao projeto
-Para acessar o sistema, você pode baixar o código fonte e executá-lo localmente seguindo o passo a passo indicado a seguir.
+Para acessar o sistema, você pode baixar o código fonte ou clonar esse repositório e executá-lo localmente seguindo o passo a passo indicado a seguir.
 
 ## 🛠️ Abrir e rodar o projeto
 ### Dependências
