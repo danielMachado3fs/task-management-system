@@ -9,6 +9,7 @@ async function bootstrap() {
 	app.useLogger(logger);
 	app.useGlobalPipes(new ValidationPipe({ transform: true }));
 	app.setGlobalPrefix(globalPrefix);
+	app.enableCors();
 	await app.listen(3001);
 	console.log('app listen port: 3001/api');
 }

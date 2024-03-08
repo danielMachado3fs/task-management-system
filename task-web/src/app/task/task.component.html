@@ -1,6 +1,42 @@
-<div class="card flex justify-content-center">
-  <a type="button" [routerLink]="['adicionar']">Adicionar</a>
-</div>
-<div class="card flex justify-content-center">
-  <p-button label="Check" icon="pi pi-check"></p-button>
+<div>
+  <div class="top-bar">
+    <h1>Olá, aqui estão suas tarefas</h1>
+    <p-button [routerLink]="['adicionar']" label="Adicionar tarefa" icon="pi pi-plus"></p-button>
+  </div>
+  <table class="table table-bordered table-hover table-responsive">
+    <thead>
+      <tr>
+        <th class="text-center">Título</th>
+        <th class="text-center">Descrição</th>
+        <th class="text-center">Vencimento</th>
+        <th class="text-center">Status</th>
+        <th class="text-center"><i class="pi pi-cog"></i></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td colspan="100%" *ngIf="isLoading">
+          <app-loading></app-loading>
+        </td>
+      </tr>
+      <tr class="text-center" *ngIf="tasks?.length == 0 && !isLoading">
+        <td colspan="100%" style="padding: 20px">Nenhuma tarefa encontrada</td>
+      </tr>
+      <tr *ngFor="let task of tasks">
+        <td class="text-center">{{ task.title }}</td>
+        <td class="text-center">{{ task.description }}</td>
+        <td class="text-center">{{ task.dueDate | customDate }}</td>
+        <td class="text-center">{{ task.status }}</td>
+        <td class="text-center">
+          <div class="inline-flex">
+            <a [routerLink]="['/editar/' + task._id]" routerLinkActive="router-link-active"
+              class="pi pi-pencil table-button"></a>
+          </div>
+          <div class="inline-flex">
+            <button (click)="taskDelete(task._id ?? '')" class="pi pi-trash table-button table-button delete"></button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
