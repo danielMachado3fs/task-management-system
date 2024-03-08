@@ -86,30 +86,33 @@ export class TaskFormComponent implements OnInit {
       if(this.id) {
         this.taskService.updateTask(this.id, task).subscribe({
           next: (res) => {
-            console.log("🚀 ~ TaskFormComponent ~ this.taskService.updateTask ~ res:", res)
+            this.taskService.showSuccess('Tarefa atualizada com sucesso!');
             setTimeout(() => {
               this.router.navigate(['']);
             }, 2000);
           },
           error: (err) => {
-            console.log(
-              '🚀 ~ TaskFormComponent ~ this.taskService.createTask ~ err:',
-              err
-            );
+            setTimeout(() => {
+              this.isLoading = false;
+              this.isSubmitting = false;
+            }, 1000);
+            this.taskService.showError();
           },
         });
       }else {
         this.taskService.createTask(task).subscribe({
           next: (res) => {
+            this.taskService.showSuccess('Tarefa criada com sucesso!');
             setTimeout(() => {
               this.router.navigate(['']);
             }, 2000);
           },
           error: (err) => {
-            console.log(
-              '🚀 ~ TaskFormComponent ~ this.taskService.createTask ~ err:',
-              err
-            );
+            setTimeout(() => {
+              this.isLoading = false;
+              this.isSubmitting = false;
+            }, 1000);
+            this.taskService.showError();
           },
         });
       }

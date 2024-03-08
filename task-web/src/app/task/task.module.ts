@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { SharedModule } from '../shared/shared.module';
@@ -24,6 +25,6 @@ import { TaskService } from './task.service';
     ReactiveFormsModule,
     DialogModule
   ],
-  providers: [TaskService]
+  providers: [TaskService, MessageService]
 })
 export class TaskModule { }

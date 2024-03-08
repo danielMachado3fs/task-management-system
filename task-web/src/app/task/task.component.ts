@@ -32,20 +32,14 @@ export class TaskComponent implements OnInit {
     this.isLoading = true;
     this.taskService.findTasks().subscribe({
       next: (res) => {
-        console.log(
-          '🚀 ~ TaskComponent ~ this.taskService.findTasks ~ res:',
-          res
-        );
         setTimeout(() => {
           this.tasks = res.data;
           this.isLoading = false;
         }, 2000);
       },
       error: (err) => {
-        console.log(
-          '🚀 ~ TaskComponent ~ this.taskService.findTasks ~ err:',
-          err
-        );
+        this.isLoading = false;
+        this.taskService.showError();
       },
     });
   }
@@ -54,6 +48,7 @@ export class TaskComponent implements OnInit {
     this.isLoadingPage = true;
     this.taskService.deleteTask(this.deletedId).subscribe({
       next: () => {
+        this.taskService.showSuccess('Tarefa deletada com sucesso!');
         setTimeout(() => {
           this.tasks = this.tasks.filter((t) => t._id != this.deletedId);
           this.deletedId = '';
@@ -63,10 +58,11 @@ export class TaskComponent implements OnInit {
         }, 1000);
       },
       error: (err) => {
-        console.log(
-          '🚀 ~ TaskComponent ~ this.taskService.deleteTask ~ err:',
-          err
-        );
+        setTimeout(() => {
+          this.toggleModal();
+          this.isLoadingPage = false;
+        }, 1000)
+        this.taskService.showError();
       },
     });
   }

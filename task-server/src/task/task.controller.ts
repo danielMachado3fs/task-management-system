@@ -1,5 +1,6 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Res, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
+import { AuthGuard } from 'src/auth/auth.guard';
 import { CreateTaskDto, UpdateTaskDto } from './dto/task.dto';
 import { TaskService } from './task.service';
 
@@ -24,13 +25,15 @@ export class TaskController {
 		return { data: await this.taskService.findOne(_id) };
 	}
 
+	@UseGuards(AuthGuard)
 	@Patch(':id')
 	async update(@Param('id') _id: string, @Body() updateTaskDto: UpdateTaskDto, @Res() res: Response) {
 		const updated = await this.taskService.update(_id, updateTaskDto);
 		if (updated) res.status(204).send();
-		res.status(400);
+		res.status(400).send();
 	}
 
+	@UseGuards(AuthGuard)
 	@Delete(':id')
 	remove(@Param('id') _id: string) {
 		return this.taskService.remove(_id);
