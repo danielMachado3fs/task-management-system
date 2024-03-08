@@ -19,7 +19,7 @@ export class CreateTaskDto {
 	@IsBoolean()
 	@IsOptional()
 	@Transform(({ value }) => (typeof value === 'string' ? (value.toLowerCase() === 'true' ? true : false) : value))
-	public: boolean;
+	isPublic: boolean;
 
 	@IsString()
 	@IsOptional()

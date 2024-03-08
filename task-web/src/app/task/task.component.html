@@ -1,14 +1,18 @@
 <div>
+  <div class="loader"  [ngClass]="isLoadingPage ? 'visible' : ''">
+    <app-loading size="3rem" ></app-loading>
+  </div>
   <div class="top-bar">
     <h1>Olá, aqui estão suas tarefas</h1>
     <p-button [routerLink]="['adicionar']" label="Adicionar tarefa" icon="pi pi-plus"></p-button>
   </div>
-  <table class="table table-bordered table-hover table-responsive">
+  <table class="table table-bordered table-hover table-responsive table-striped">
     <thead>
       <tr>
         <th class="text-center">Título</th>
         <th class="text-center">Descrição</th>
         <th class="text-center">Vencimento</th>
+        <th class="text-center">Visibilidade</th>
         <th class="text-center">Status</th>
         <th class="text-center"><i class="pi pi-cog"></i></th>
       </tr>
@@ -26,17 +30,39 @@
         <td class="text-center">{{ task.title }}</td>
         <td class="text-center">{{ task.description }}</td>
         <td class="text-center">{{ task.dueDate | customDate }}</td>
+        <td class="text-center">{{ task.isPublic ? 'Pública' : 'Privada' }}</td>
         <td class="text-center">{{ task.status }}</td>
         <td class="text-center">
           <div class="inline-flex">
-            <a [routerLink]="['/editar/' + task._id]" routerLinkActive="router-link-active"
+            <a [routerLink]="['editar/' + task._id]" routerLinkActive="router-link-active"
               class="pi pi-pencil table-button"></a>
           </div>
           <div class="inline-flex">
-            <button (click)="taskDelete(task._id ?? '')" class="pi pi-trash table-button table-button delete"></button>
+            <button (click)="toggleModal(task._id)" class="pi pi-trash table-button table-button delete"></button>
           </div>
         </td>
       </tr>
     </tbody>
   </table>
+</div>
+
+
+<div class="card flex justify-content-center">
+  <p-dialog header="Header" [(visible)]="showModal" [modal]="true" [style]="{ width: '50rem' }"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+    <ng-template pTemplate="header">
+    </ng-template>
+    <div class="d-flex flex-column align-items-center justify-content-center gap-3" style="width: 100%;">
+      <i class="pi pi-exclamation-circle" style="font-size: 6rem; color: #ff0000;"></i>
+      <h3>
+        Deseja realmente deletar essa tarefa?
+      </h3>
+    </div>
+    <ng-template pTemplate="footer">
+      <div class="d-flex flex-row gap-3 justify-content-end">
+        <p-button icon="pi pi-check" (click)="taskDelete()" label="Ok" pAutoFocus [autofocus]="true"></p-button>
+        <p-button icon="pi pi-check" (click)="toggleModal()" label="Cancelar" severity="danger"></p-button>
+      </div>
+    </ng-template>
+  </p-dialog>
 </div>

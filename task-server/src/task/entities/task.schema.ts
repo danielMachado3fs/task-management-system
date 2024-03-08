@@ -7,7 +7,7 @@ export interface ITask {
 	description: string;
 	dueDate: Date;
 	status: StatusTaskEnum;
-	public: boolean;
+	isPublic: boolean;
 	createdAt: Date;
 	updatedAt: Date;
 }
@@ -26,7 +26,7 @@ export const TaskSchema: mongoose.Schema<TaskDocument> = new mongoose.Schema<Tas
 			enum: Object.values(StatusTaskEnum),
 			default: StatusTaskEnum.NOVA,
 		},
-		public: { type: Boolean, default: true },
+		isPublic: { type: Boolean, default: true },
 	},
 	{ timestamps: true },
 );

@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as dayjs from 'dayjs';
 import { StatusTaskEnum, Task } from 'src/app/shared/types/task';
 import { TaskService } from '../task.service';
 
@@ -10,6 +11,7 @@ import { TaskService } from '../task.service';
   styleUrls: ['./task-form.component.scss'],
 })
 export class TaskFormComponent implements OnInit {
+  title = 'Adicionar Tarefa';
   formTask!: FormGroup;
   isSubmitting = false;
   isLoading = false;
@@ -40,6 +42,7 @@ export class TaskFormComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.id) {
+      this.title = 'Editar Tarefa';
       this.fetchTask(this.id);
     } else {
       this.formCreate();
@@ -63,10 +66,10 @@ export class TaskFormComponent implements OnInit {
       _id: [task?._id],
       title: [task?.title, [Validators.required]],
       description: [task?.description, [Validators.required]],
-      dueDate: [task?.dueDate, [Validators.required]],
-      status: [task?.status ?? this.statusOptions[0], [Validators.required]],
+      dueDate: [task?.dueDate ? dayjs(task?.dueDate).format('YYYY-MM-DD') : undefined, [Validators.required]],
+      status: [this.statusOptions.find(o => o.code == task?.status) ?? this.statusOptions[0], [Validators.required]],
       isPublic: [
-        task?.isPublic ?? this.booleanOptions[0],
+        this.booleanOptions.find(o => o.code == task?.isPublic)?? this.booleanOptions[0],
         [Validators.required],
       ],
     });
@@ -80,19 +83,36 @@ export class TaskFormComponent implements OnInit {
       values.status = values.status.code;
       values.isPublic = values.isPublic.code;
       const task = Task.build(values);
-      this.taskService.createTask(task).subscribe({
-        next: (res) => {
-          setTimeout(() => {
-            this.router.navigate(['']);
-          }, 2000);
-        },
-        error: (err) => {
-          console.log(
-            '🚀 ~ TaskFormComponent ~ this.taskService.createTask ~ err:',
-            err
-          );
-        },
-      });
+      if(this.id) {
+        this.taskService.updateTask(this.id, task).subscribe({
+          next: (res) => {
+            console.log("🚀 ~ TaskFormComponent ~ this.taskService.updateTask ~ res:", res)
+            setTimeout(() => {
+              this.router.navigate(['']);
+            }, 2000);
+          },
+          error: (err) => {
+            console.log(
+              '🚀 ~ TaskFormComponent ~ this.taskService.createTask ~ err:',
+              err
+            );
+          },
+        });
+      }else {
+        this.taskService.createTask(task).subscribe({
+          next: (res) => {
+            setTimeout(() => {
+              this.router.navigate(['']);
+            }, 2000);
+          },
+          error: (err) => {
+            console.log(
+              '🚀 ~ TaskFormComponent ~ this.taskService.createTask ~ err:',
+              err
+            );
+          },
+        });
+      }
     }
   }
 }
