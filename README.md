@@ -25,3 +25,4 @@ npm run start
 Esses comando irá executar o servidor do backend e conectar ao banco de dados.
 
 Para rodar o frontend bastar acessar a pasta task-web e realizar os mesmo passos, com a diferença que o arquivo ``.sh`` tem o nome ``run-task-management-web`` casp queira rodar o projeto através dele.
+Apos rodar o backend e o frontend, basta acessar em seu navegador [http://localhost:4200](http://localhost:4200)
